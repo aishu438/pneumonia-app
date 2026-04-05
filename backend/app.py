@@ -61,8 +61,8 @@ def predict():
         outputs = session.run([output_name], {input_name: arr})
         prediction = outputs[0]  # shape: (1, 2)
 
-        normal_score    = float(prediction[0][0])
-        pneumonia_score = float(prediction[0][1])
+        pneumonia_score = float(prediction[0][0])
+           normal_score = float(prediction[0][1])
 
         if pneumonia_score > normal_score:
             label      = 'PNEUMONIA'
