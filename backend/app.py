@@ -60,18 +60,18 @@ def predict():
         # Run inference
         outputs = session.run([output_name], {input_name: arr})
         prediction = outputs[0]  # shape: (1, 2)
-
-                normal_score    = float(prediction[0][1])
-                pneumonia_score = float(prediction[0][0])
-
-
+        
+         # Swapped: output[0]=PNEUMONIA, output[1]=NORMAL
+        pneumonia_score = float(prediction[0][0])
+        normal_score    = float(prediction[0][1])
+ 
         if pneumonia_score > normal_score:
             label      = 'PNEUMONIA'
             confidence = round(pneumonia_score * 100, 2)
         else:
             label      = 'NORMAL'
             confidence = round(normal_score * 100, 2)
-
+ 
         return jsonify({
             "result":     label,
             "confidence": confidence,
@@ -80,11 +80,12 @@ def predict():
                 "pneumonia": round(pneumonia_score, 4),
             }
         })
-
+ 
     except Exception as e:
         import traceback
         print(f"❌ Error: {e}")
         return jsonify({"error": str(e), "trace": traceback.format_exc()}), 500
+ 
 
 
 # ── Entry point ──────────────────────────────────────────────
