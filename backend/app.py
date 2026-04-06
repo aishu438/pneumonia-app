@@ -62,8 +62,8 @@ def predict():
         prediction = outputs[0]  # shape: (1, 2)
         
          # Swapped: output[0]=PNEUMONIA, output[1]=NORMAL
-        pneumonia_score = float(prediction[0][0])
-        normal_score    = float(prediction[0][1])
+        pneumonia_score = float(prediction[0][1])
+        normal_score    = float(prediction[0][0])
  
         if pneumonia_score > normal_score:
             label      = 'PNEUMONIA'
